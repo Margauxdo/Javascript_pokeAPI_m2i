@@ -22,7 +22,7 @@ header img{
 #imagePokemon{
     width:200px;
 }
-main {
+.searchPokemon {
     border: 2px solid #ff9900;
     border-radius: 5px;
     background: black;
