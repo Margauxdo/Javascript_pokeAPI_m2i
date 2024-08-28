@@ -18,6 +18,7 @@ main {
     background: black;
     padding: 30px;
     margin: 50px;
+    box-shadow: #373636 2px 3px 10px;
     
 }
 #namePokemon{
@@ -27,6 +28,12 @@ main {
     padding-top: 25px;
 }
 p{
-    color:white;
+    color: white;
+    font-weight: 100;
+    font-size: 15px;
+}
+img{
+    width: 150px;
+    
 }
 
