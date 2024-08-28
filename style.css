@@ -1,0 +1,32 @@
+.degrade{
+    background: linear-gradient(30deg,rgb(231, 9, 9), rgb(3, 11, 39));
+}
+*{
+  font-family: "Grandstander", cursive;
+
+}
+h1{
+    font-weight: 600;
+    font-size: 50px;
+    text-align: center;
+    color: rgb(255, 255, 255) ;
+    text-transform: uppercase;
+}
+main {
+    border: 2px solid #ff9900;
+    border-radius: 5px;
+    background: black;
+    padding: 30px;
+    margin: 50px;
+    
+}
+#namePokemon{
+    color: #ff9900;
+    font-size: 30px;
+    text-align: center;
+    padding-top: 25px;
+}
+p{
+    color:white;
+}
+
