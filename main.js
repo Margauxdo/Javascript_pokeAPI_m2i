@@ -40,12 +40,12 @@ const getPokemonById = async (idPokemon) => {
 function displayPokemonInfo(pokemon){
     if(pokemon.error){
         pokemonInfo.textContent = pokemon.error;
-        //imagePokemon.src = '';
-        //typePokemon.textContent = '';
-        //weightPokemon.textContent = '';
-        //heightPokemon.textContent = '';
-        //abilitiesPokemon.textContent = '';
-        //idPokemon.textContent = '';
+        imagePokemon.src = '';
+        typePokemon.textContent = '';
+        weightPokemon.textContent = '';
+        heightPokemon.textContent = '';
+        abilitiesPokemon.textContent = '';
+        idPokemon.textContent = '';
     }
     else{
         namePokemon.textContent = `Nom: ${pokemon.name}`;
@@ -75,17 +75,18 @@ const heightPokemon = document.getElementById("heightPokemon");
 const abilitiesPokemon = document.getElementById("abilitiesPokemon");
 const idPokemon = document.getElementById("numPokedex");
 
-searchBtn.addEventListener("click", () => {
+searchBtn.addEventListener("click", (e) => {
+    e.preventDefault();
+    const input = pokemonInput.value.trim().toLowerCase();
+  getPokemonById(input);
   
-    if(!pokemonInput.value){
-        return;
-    }
-    numberID = parseInt(pokemonInput.value);
-    getPokemonById(numberID);
-    pokemonInput.value = "";
-    
+}
+);
 
-});
+
+
+
+
 
 prevBtn.addEventListener("click", () => {
    
