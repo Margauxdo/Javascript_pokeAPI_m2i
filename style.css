@@ -12,14 +12,24 @@ h1{
     color: rgb(255, 255, 255) ;
     text-transform: uppercase;
 }
+header img{
+    width: 300px;
+    margin-top: 30px;
+    margin-bottom: 80px;
+    position: relative;
+    margin-left: 42%;
+}
+#imagePokemon{
+    width:200px;
+}
 main {
     border: 2px solid #ff9900;
     border-radius: 5px;
     background: black;
-    padding: 30px;
-    margin: 50px;
-    box-shadow: #373636 2px 3px 10px;
-    
+    padding: 50px;
+    margin: auto;
+    box-shadow:#000000 2px 5px 30px;
+    max-width: 600px;
 }
 #namePokemon{
     color: #ff9900;
@@ -32,8 +42,59 @@ p{
     font-weight: 100;
     font-size: 15px;
 }
-img{
-    width: 150px;
+
+.containPokemon{
+    position: relative;
+    display: flex;
+    margin: 0px;
+    width: 500px;
+    flex-direction: row;
+}
+.topPoke{
+    width: 300px;
     
+    
+}
+#pokemonInput{
+    width: 400px;
+    height: 20px;
+    margin: 0px 80px 10px 10px;
+}
+#searchBtn{
+    position: absolute;
+    background: #ff9900;
+    width: 120px;
+    height: 30px;
+    border-radius: 5px;
+    border: 0px solid;
+    box-shadow: #575555 1px 1px 4px;
+    color: white;
+    font-size: 15px;
+}
+#nextBtn, #prevBtn {
+    border-radius: 50px;
+    height: 50px;
+    width: 50px;
+    background-color: #ff99007a;
+    border: 0px solid;
+    color: hsla(0, 0%, 13%, 1);
+    font-size: 23px;
+    font-weight: 500;
+}
+.navigation{
+    width: 600px;
+    position: absolute;
+    margin: auto;
+    display: flex;
+}
+#prevBtn{
+    position: relative;
+    top: 150px;
+    right: 20px;
+}
+#nextBtn{
+    position: relative;
+    top:150px;
+    left:510px;
 }
 
