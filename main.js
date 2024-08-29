@@ -31,8 +31,10 @@ const getPokemonById = async (idPokemon) => {
             
         }
         catch(error){
-            displayPokemonInfo({error: "erreur lors de la récupération du Pokemon par son numéro de Pokedex international!"});
-        console.log(error);
+            const errorElement = document.getElementById("namePokemon"); 
+            errorElement.textContent = "Erreur, Mauvais nom ou mauvais id de Pokémon!";
+            errorElement.classList.add("error"); 
+            console.log(error);
         }
     }
    

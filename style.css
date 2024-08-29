@@ -6,18 +6,18 @@
 
 }
 h1{
-    font-weight: 600;
-    font-size: 50px;
+    /*font-weight: 600;*/
+    /*font-size: 50px;*/
     text-align: center;
-    color: rgb(255, 255, 255) ;
-    text-transform: uppercase;
+    color:  transparent ;
+    /*text-transform: uppercase;*/
 }
 header img{
     width: 300px;
-    margin-top: 30px;
-    margin-bottom: 80px;
+    margin-top: 40px;
+    margin-bottom: 30px;
     position: relative;
-    margin-left: 42%;
+    margin-left: 40%;
 }
 #imagePokemon{
     width:200px;
@@ -75,11 +75,16 @@ p{
     border-radius: 50px;
     height: 50px;
     width: 50px;
-    background-color: #ff99007a;
+    background-color: #ff9900b9;
     border: 0px solid;
     color: hsla(0, 0%, 13%, 1);
     font-size: 23px;
     font-weight: 500;
+    transition: transform 0.3s ease;
+}
+#nextBtn:hover, #prevBtn:hover{
+    transform: scale(1.5);
+ 
 }
 .navigation{
     width: 600px;
@@ -97,4 +102,11 @@ p{
     top:150px;
     left:510px;
 }
+.fig{
+    width:200px;
+    position: absolute;
+    bottom:50px;
+    left:1500px
+}
+
 
