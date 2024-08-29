@@ -16,6 +16,42 @@
         <h1>Pokédex</h1>
     </header>
     <main class="anim">
+        <div class="listPokemons">
+            <button class="filterButton">Filtrer</button>
+            <div class="filterOverlay">
+
+            </div>
+            <div class="filterModal">
+                <h2>Filtrer vos Pokémons</h2>
+                <label for="filterGeneration">Génération:</label>
+                <select id="generation">
+                    <option value="">Toutes les générations</option>
+                    <option value="1">Génération 1</option>
+                    <option value="2">Génération 2</option>
+                    <option value="3">Génération 3</option>
+                    <option value="4">Génération 4</option>
+                    <option value="5">Génération 5</option>
+                    <option value="6">Génération 6</option>
+                    <option value="7">Génération 7</option>
+                    <option value="8">Génération 8</option>
+                    <option value="9">Génération 9</option>
+                </select>
+
+                <button class="submitFilter"> Appliquer le filtre</button>
+                <button class="closeFilter">Fermer</button>
+
+            </div>
+            <div class="pokemonList20">
+                <div class="pokemon">
+                    <img src="" alt="Image du Pokémon">
+                    <h3 class="pokemonName"></h3>
+                    <p class="pokemonNumber"></p>
+                </div>
+               
+
+            </div>
+
+        </div>
         <div class="searchPokemon">
     <input type="text" id="pokemonInput" placeholder="Nom ou ID du Pokémon">
     <button id="searchBtn">Rechercher</button>
@@ -41,20 +77,7 @@
         </div>
     </div>
     </div>
-<div class="pokemonListGeneration">
-    <select id="generationSelect">
-        <option value="1">Génération 1</option>
-        <option value="2">Génération 2</option>
-        <option value="3">Génération 3</option>
-        <option value="4">Génération 4</option>
-        <option value="5">Génération 5</option>
-        <option value="6">Génération 6</option>
-        <option value="7">Génération 7</option>
-        <option value="8">Génération 8</option>
-    </select>
-    
-    <ul id="pokemonList"></ul>
-</div>
+
     </main>
     <footer>
         <div class="imgfooter">

@@ -103,10 +103,47 @@ p{
     left:510px;
 }
 .fig{
-    width:200px;
-    position: absolute;
-    bottom:50px;
-    left:1500px
+    width: 200px;
+    position: relative;
+    top: 150px;
+    left: 1500px
 }
-
+.pokemonList20{
+    max-width: 1800px;
+    position: relative;
+    display: flex;
+    width: 100%;
+    margin: auto;
+    padding-bottom: 70px;
+}
+.pokemon{
+    max-width: 500px;
+    width: 100%;
+    margin: auto;
+}
+.pokemon h3{
+    font-size: 13px;
+    color: #fff;
+    font-weight: 100;
+    text-align: center;
+}
+.pokemon p{
+    text-align: center;
+}
+.pokemon img{
+    max-width: 150px;
+    width: 100%;
+    margin: auto;
+}
+.filterButton{
+    color: #ff9900;
+    background: black;
+    width: 100px;
+    height: 30px;
+    border: 0.2px solid #252525;
+    font-size: 15px;
+    font-weight: 200;
+    text-transform: uppercase;
+    float: inline-end;
+}
 
