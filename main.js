@@ -2,6 +2,26 @@ import { Pokemon } from "./js/pokemon.js";
 
 const apiUrl = "https://pokeapi.co/api/v2/";
 
+const pokemonInput = document.getElementById("pokemonInput");
+const searchBtn = document.getElementById("searchBtn");
+const prevBtn = document.getElementById("prevBtn");
+const nextBtn = document.getElementById("nextBtn");
+const pokemonInfo = document.getElementById("pokemonInfo");
+const namePokemon = document.getElementById("namePokemon");
+const imagePokemon = document.getElementById("imagePokemon");
+const typePokemon = document.getElementById("typePokemon");
+const weightPokemon = document.getElementById("weightPokemon");
+const heightPokemon = document.getElementById("heightPokemon");
+const abilitiesPokemon = document.getElementById("abilitiesPokemon");
+const idPokemon = document.getElementById("numPokedex");
+
+const filterButton = document.querySelector(".filterButton");
+const filterModal = document.querySelector(".filterModal");
+const filterOverlay = document.querySelector(".filterOverlay");
+const submitFilterButton = document.querySelector(".submitFilter");
+const closeFilterButton = document.querySelector(".closeFilter");
+const generationSelect = document.getElementById("generation");
+
 let numberID = 1;
 
 const orderGeneration = {
@@ -19,13 +39,16 @@ const orderGeneration = {
 const mapPokemon = (data) => {
     return new Pokemon(
         data.name,
-        data.sprites.front_default,
+        data.sprites.other["official-artwork"].front_default,
         data.types.map(type => type.type.name),
         (data.weight / 10).toFixed(1) + 'kg',
         (data.height / 10).toFixed(1) + 'm',
         data.abilities.map(ability => ability.ability.name),
         data.id   
     );
+
+   
+    
 };
 
 const getPokemonById = async (idPokemon) => {
@@ -38,7 +61,7 @@ const getPokemonById = async (idPokemon) => {
             const data = await response.json();
             const pokemon = mapPokemon(data);
             displayPokemonInfo(pokemon);
-            
+
         } catch (error) {
             const errorElement = document.getElementById("namePokemon"); 
             errorElement.textContent = "Erreur, Mauvais nom ou mauvais id de Pokémon!";
@@ -68,25 +91,7 @@ function displayPokemonInfo(pokemon) {
     }
 }
 
-const pokemonInput = document.getElementById("pokemonInput");
-const searchBtn = document.getElementById("searchBtn");
-const prevBtn = document.getElementById("prevBtn");
-const nextBtn = document.getElementById("nextBtn");
-const pokemonInfo = document.getElementById("pokemonInfo");
-const namePokemon = document.getElementById("namePokemon");
-const imagePokemon = document.getElementById("imagePokemon");
-const typePokemon = document.getElementById("typePokemon");
-const weightPokemon = document.getElementById("weightPokemon");
-const heightPokemon = document.getElementById("heightPokemon");
-const abilitiesPokemon = document.getElementById("abilitiesPokemon");
-const idPokemon = document.getElementById("numPokedex");
 
-const filterButton = document.querySelector(".filterButton");
-const filterModal = document.querySelector(".filterModal");
-const filterOverlay = document.querySelector(".filterOverlay");
-const submitFilterButton = document.querySelector(".submitFilter");
-const closeFilterButton = document.querySelector(".closeFilter");
-const generationSelect = document.getElementById("generation");
 
 filterButton.addEventListener("click", () => {
     filterModal.style.display = "block";

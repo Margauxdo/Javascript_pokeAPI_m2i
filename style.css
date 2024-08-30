@@ -25,7 +25,7 @@ header img{
 .searchPokemon {
     border: 2px solid #ff9900;
     border-radius: 5px;
-    background: black;
+    background: #0000006b;
     padding: 50px;
     margin: auto;
     box-shadow:#000000 2px 5px 30px;
@@ -36,6 +36,15 @@ header img{
     font-size: 30px;
     text-align: center;
     padding-top: 25px;
+}
+#pokemonInfo{
+    background: black;
+    max-width: 500px;
+    width: 100%;
+    margin: auto;
+    border-radius: 5px;
+    border: 0.5px solid #ff9900;
+    margin: 50px 40px;
 }
 p{
     color: white;
@@ -95,12 +104,12 @@ p{
 #prevBtn{
     position: relative;
     top: 150px;
-    right: 20px;
+    right: 30px;
 }
 #nextBtn{
     position: relative;
     top:150px;
-    left:510px;
+    left:530px;
 }
 .fig{
     width: 200px;
@@ -145,6 +154,7 @@ p{
     font-weight: 200;
     text-transform: uppercase;
     float: inline-end;
+    margin-bottom: 30px;
 }
 .listPokemons {
     max-width: 1600px;
