@@ -4,13 +4,25 @@ const apiUrl = "https://pokeapi.co/api/v2/";
 
 let numberID = 1;
 
+const orderGeneration = {
+    1: { start: 1, end: 151 },
+    2: { start: 152, end: 251 },
+    3: { start: 252, end: 386 },
+    4: { start: 387, end: 493 },
+    5: { start: 494, end: 649 },
+    6: { start: 650, end: 721 },
+    7: { start: 722, end: 807 },
+    8: { start: 810, end: 898 },
+    9: { start: 899, end: 1025 },
+};
+
 const mapPokemon = (data) => {
     return new Pokemon(
         data.name,
         data.sprites.front_default,
         data.types.map(type => type.type.name),
-        (data.weight/10).toFixed(2) + 'kg',
-        (data.height/10).toFixed(2) + 'm',
+        (data.weight / 10).toFixed(1) + 'kg',
+        (data.height / 10).toFixed(1) + 'm',
         data.abilities.map(ability => ability.ability.name),
         data.id   
     );
@@ -20,9 +32,13 @@ const getPokemonById = async (idPokemon) => {
     if (idPokemon) {
         try {
             const response = await fetch(`${apiUrl}pokemon/${idPokemon}`);
+            if (!response.ok) {
+                throw new Error("Pokémon non trouvé");
+            }
             const data = await response.json();
             const pokemon = mapPokemon(data);
             displayPokemonInfo(pokemon);
+            
         } catch (error) {
             const errorElement = document.getElementById("namePokemon"); 
             errorElement.textContent = "Erreur, Mauvais nom ou mauvais id de Pokémon!";
@@ -86,50 +102,51 @@ submitFilterButton.addEventListener("click", () => {
     filterModal.style.display = "none";
     filterOverlay.style.display = "none";
     const generation = generationSelect.value;
-    getPokemonByGeneration(generation);
+    getFirst10Pokemons(generation);
 });
 
-const getFirst10Pokemons = async () => {
-    const url = `${apiUrl}pokemon?limit=10`;
-    try {
-        const response = await fetch(url);
-        const data = await response.json();
-        const pokemonList = data.results;
-        await displayPokemons(pokemonList);
-    } catch (error) {
-        console.error("Erreur lors de la récupération des Pokémon:", error);
+const getFirst10Pokemons = async (generation) => {
+    const generationPokemon = orderGeneration[generation];
+    if (!generationPokemon) {
+        console.error(`Génération ${generation} inconnue`);
+        return;
     }
-};
 
-const displayPokemons = async (pokemonList) => {
-    const pokemonContainer = document.querySelector(".pokemonList20"); 
+    const pokemonContainer = document.querySelector(".pokemonList20");
     pokemonContainer.innerHTML = "";
 
-    for (const pokemon of pokemonList) {
-        try {
-            
-            const pokemonResponse = await fetch(pokemon.url);
-            const pokemonData = await pokemonResponse.json();
+    try {
+        for (let i = generationPokemon.start; i < generationPokemon.start + 10; i++) {
+            try {
+                const response = await fetch(`${apiUrl}pokemon/${i}`);
+                if (!response.ok) {
+                    continue; 
+                }
+                const data = await response.json();
+                const pokemon = mapPokemon(data);
+                
 
-            const pokemonElmt = document.createElement("div");
-            pokemonElmt.classList.add("pokemon");
+                const pokemonElmt = document.createElement("div");
+                pokemonElmt.classList.add("pokemon");
 
-            pokemonElmt.innerHTML = `
-                <img src="${pokemonData.sprites.front_default}" alt="${pokemonData.name}">
-                <h3 class="pokemonName">${pokemonData.name}</h3>
-                <p class="pokemonNumber">#${pokemonData.id}</p>
-            `;
-            pokemonContainer.appendChild(pokemonElmt);
+                pokemonElmt.innerHTML = `
+                    <img src="${pokemon.image}" alt="${pokemon.name}">
+                    <h3 class="pokemonName">${pokemon.name}</h3>
+                    <p class="pokemonNumber">#${pokemon.numPokedex}</p>
+                `;
 
-        } catch (error) {
-            console.error(`Erreur de pokemon:  ${pokemon.name}:`, error);
+                pokemonContainer.appendChild(pokemonElmt);
+            } catch (error) {
+                console.error(`Erreur de Pokemon${i}:`, error);
+            }
         }
+    } catch (error) {
+        console.error("Erreur de Pokémon:", error);
     }
 };
 
-
 document.addEventListener("DOMContentLoaded", () => {
-    getFirst10Pokemons();
+    getFirst10Pokemons(2); 
 });
 
 searchBtn.addEventListener("click", (e) => {
@@ -139,8 +156,10 @@ searchBtn.addEventListener("click", (e) => {
 });
 
 prevBtn.addEventListener("click", () => {
-    numberID--;
-    getPokemonById(numberID);
+    if (numberID > 1) {
+        numberID--;
+        getPokemonById(numberID);
+    }
 });
 
 nextBtn.addEventListener("click", () => {
@@ -149,3 +168,4 @@ nextBtn.addEventListener("click", () => {
 });
 
 getPokemonById(numberID);
+
