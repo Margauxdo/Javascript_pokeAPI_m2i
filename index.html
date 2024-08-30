@@ -24,7 +24,8 @@
             <div class="filterModal">
                 <h2>Filtrer vos Pokémons</h2>
                 <div class="optionFilter">
-                    <label for="filterGeneration">Génération:</label>
+                    
+                    <div class="selectOptions">
                     <select id="generation">
                         <option value="">Toutes les générations</option>
                         <option value="1">Génération 1</option>
@@ -37,6 +38,30 @@
                         <option value="8">Génération 8</option>
                         <option value="9">Génération 9</option>
                     </select>
+
+                    <select id="capacity">
+                        <option value="">Toutes les capacités</option>
+                        <option value="1">Acier</option>
+                        <option value="2">Dragon</option>
+                        <option value="3">Electrik</option>
+                        <option value="4">Feu</option>
+                        <option value="5">Insecte</option>
+                        <option value="6">Plante</option>
+                        <option value="7">Psy</option>
+                        <option value="8">Sol</option>
+                        <option value="9">Ténèbre</option>
+                        <option value="10">Combat</option>
+                        <option value="11">Eau</option>
+                        <option value="12">Fée</option>
+                        <option value="13">Glace</option>
+                        <option value="14">Normal</option>
+                        <option value="15">Poison</option>
+                        <option value="16">Roche</option>
+                        <option value="17">Spectre</option>
+                        <option value="18">Vol</option>
+                    </select>
+                    </div>
+                    <!-- faire le filtre par sa capacité main.js -->
                     
                     <div class="buttonOptionFilter">
                         <button class="submitFilter"> Appliquer le filtre</button>
@@ -82,9 +107,15 @@
                 <p id="heightPokemon"></p>
                 <p id="abilitiesPokemon"></p>
                 <p id="numPokedex"></p>
+                <!-- proposer à affichage evolution du pokemon avec ses infos -->
             </div>
         </div>
     </div>
+    <!-- attraper les pokemon et les ajouter a ma pokedex sous forme de liste avec le localstorage -->
+     <div class="pokedex">
+        <button> Ajouter à ma Pokedex</button>
+
+     </div>
     </div>
 
     </main>

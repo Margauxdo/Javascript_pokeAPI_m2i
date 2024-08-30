@@ -35,6 +35,27 @@ const orderGeneration = {
     8: { start: 810, end: 898 },
     9: { start: 899, end: 1025 },
 };
+const typeOfCapacity = {
+    1: "acier",
+    2: "dragon",
+    3: "electrik",
+    4: "feu",
+    5: "insecte",
+    6: "plante",
+    7: "psy",
+    8: "sol",
+    9: "ténèbre",
+    10: "combat",
+    11: "eau",
+    12: "fée",
+    13: "glace",
+    14: "normal",
+    15: "poison",
+    16: "roche",
+    17: "spectre",
+    18: "vol",
+};
+
 
 const mapPokemon = (data) => {
     return new Pokemon(

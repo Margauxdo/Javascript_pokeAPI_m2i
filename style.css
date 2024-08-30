@@ -6,11 +6,10 @@
 
 }
 h1{
-    /*font-weight: 600;*/
-    /*font-size: 50px;*/
+
     text-align: center;
     color:  transparent ;
-    /*text-transform: uppercase;*/
+
 }
 header img{
     width: 300px;
@@ -164,7 +163,7 @@ p{
 .filterModal{
     background: #0000006b;
     border: 0.5px solid #FFC107;
-    height: 300px;
+    height: 400px;
 }
 .filterModal h2{
     text-align: center;
@@ -216,5 +215,18 @@ p{
     border-radius: 5px;
     color: #FFC107;
     background: black;
+}
+.pokedex button{
+    max-width: 200px;
+    margin: auto;
+    width: 100%;
+    height: 30px;
+    font-size: 15px;
+    color: #000000;
+    background: #FF9800;
+    border-radius: 5px;
+    position: relative;
+    left: 30%;
+
 }
 
