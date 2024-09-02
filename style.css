@@ -229,4 +229,14 @@ p{
     left: 30%;
 
 }
+.pokedex{
+    max-width: 1800px;
+    width: 100%;
+    margin: auto;
+
+}
+.pokedex button{
+    margin-top: 50px;
+    margin-left: 250px;
+}
 
