@@ -239,4 +239,43 @@ p{
     margin-top: 50px;
     margin-left: 250px;
 }
+.myPokedex {
+    margin: 20px;
+    padding: 20px;
+    width:100%;
+    max-width: 2400px;;
+}
+
+#pokedexList {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 50px;
+    max-width: 600px;
+    width: 100%;
+    margin: auto;
+    justify-content: initial;
+}
+
+#pokedexList .pokemon {
+    background : linear-gradient(30deg,rgba(9, 9, 9, 0.419), rgb(0, 0, 0));;
+    border-radius: 10px;
+    padding: 10px;
+    text-align: center;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+
+
+.myPokedex h2 {
+    text-align: center;
+    color: #FF9800;
+    font-size: 35px;
+    margin-bottom: 30px;
+}
+
+.myPokedex p {
+    font-size: 14px;
+    color: #666;
+}
+
 

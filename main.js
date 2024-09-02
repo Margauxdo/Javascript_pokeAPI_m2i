@@ -6,7 +6,6 @@ const pokemonInput = document.getElementById("pokemonInput");
 const searchBtn = document.getElementById("searchBtn");
 const prevBtn = document.getElementById("prevBtn");
 const nextBtn = document.getElementById("nextBtn");
-const pokemonInfo = document.getElementById("pokemonInfo");
 const namePokemon = document.getElementById("namePokemon");
 const imagePokemon = document.getElementById("imagePokemon");
 const typePokemon = document.getElementById("typePokemon");
@@ -21,6 +20,9 @@ const filterOverlay = document.querySelector(".filterOverlay");
 const submitFilterButton = document.querySelector(".submitFilter");
 const closeFilterButton = document.querySelector(".closeFilter");
 const generationSelect = document.getElementById("generation");
+const capacitySelect = document.getElementById("capacity");
+
+const addToPokedexBtn = document.querySelector(".pokedex button");
 
 let numberID = 1;
 
@@ -35,27 +37,27 @@ const orderGeneration = {
     8: { start: 810, end: 898 },
     9: { start: 899, end: 1025 },
 };
-const typeOfCapacity = {
-    1: "acier",
-    2: "dragon",
-    3: "electrik",
-    4: "feu",
-    5: "insecte",
-    6: "plante",
-    7: "psy",
-    8: "sol",
-    9: "ténèbre",
-    10: "combat",
-    11: "eau",
-    12: "fée",
-    13: "glace",
-    14: "normal",
-    15: "poison",
-    16: "roche",
-    17: "spectre",
-    18: "vol",
-};
 
+const typeOfCapacity = {
+    1: "normal",
+    2: "fire",
+    3: "water",
+    4: "electric",
+    5: "grass",
+    6: "ice",
+    7: "fighting",
+    8: "poison",
+    9: "ground",
+    10: "flying",
+    11: "psychic",
+    12: "bug",
+    13: "rock",
+    14: "ghost",
+    15: "dragon",
+    16: "dark",
+    17: "steel",
+    18: "fairy",
+};
 
 const mapPokemon = (data) => {
     return new Pokemon(
@@ -65,11 +67,18 @@ const mapPokemon = (data) => {
         (data.weight / 10).toFixed(1) + 'kg',
         (data.height / 10).toFixed(1) + 'm',
         data.abilities.map(ability => ability.ability.name),
-        data.id   
+        data.id
     );
+};
 
-   
-    
+const displayPokemonInfo = (pokemon) => {
+    namePokemon.textContent = `Nom: ${pokemon.name}`;
+    imagePokemon.src = pokemon.image;
+    typePokemon.textContent = `Types: ${pokemon.type.join(', ')}`;
+    weightPokemon.textContent = `Poids: ${pokemon.weight}`;
+    heightPokemon.textContent = `Taille: ${pokemon.height}`;
+    abilitiesPokemon.textContent = `Capacités: ${pokemon.abilities.join(', ')}`;
+    idPokemon.textContent = `Numéro de Pokedex : ${pokemon.numPokedex}`;
 };
 
 const getPokemonById = async (idPokemon) => {
@@ -77,42 +86,111 @@ const getPokemonById = async (idPokemon) => {
         try {
             const response = await fetch(`${apiUrl}pokemon/${idPokemon}`);
             if (!response.ok) {
-                throw new Error("Pokémon non trouvé");
+               alert("Pokémon non trouvé");
             }
             const data = await response.json();
             const pokemon = mapPokemon(data);
             displayPokemonInfo(pokemon);
-
+            return pokemon;
         } catch (error) {
-            const errorElement = document.getElementById("namePokemon"); 
-            errorElement.textContent = "Erreur, Mauvais nom ou mauvais id de Pokémon!";
-            errorElement.classList.add("error"); 
+            namePokemon.textContent = "Erreur, Mauvais nom ou mauvais id de Pokémon!";
+            namePokemon.classList.add("error");
             console.log(error);
         }
     }
 };
 
-function displayPokemonInfo(pokemon) {
-    if (pokemon.error) {
-        pokemonInfo.textContent = pokemon.error;
-        imagePokemon.src = '';
-        typePokemon.textContent = '';
-        weightPokemon.textContent = '';
-        heightPokemon.textContent = '';
-        abilitiesPokemon.textContent = '';
-        idPokemon.textContent = '';
-    } else {
-        namePokemon.textContent = `Nom: ${pokemon.name}`;
-        imagePokemon.src = pokemon.image;
-        typePokemon.textContent = `Types: ${pokemon.type}`;
-        weightPokemon.textContent = `Poids: ${pokemon.weight}`;
-        heightPokemon.textContent = `Taille: ${pokemon.height}`;
-        abilitiesPokemon.textContent = `Capacités: ${pokemon.abilities}`;
-        idPokemon.textContent = `Numéro de Pokedex : ${pokemon.numPokedex}`;
+const getFirst10Pokemons = async (generation = 1, capacity = null) => {
+    const generationPokemon = orderGeneration[generation];
+    const pokemonContainer = document.querySelector(".pokemonList20");
+    pokemonContainer.innerHTML = "";
+
+    let count = 0;
+    const maxPokemons = 10;
+
+    try {
+        for (let i = generationPokemon.start; i <= generationPokemon.end; i++) {
+            if (count >= maxPokemons) break;
+
+            const response = await fetch(`${apiUrl}pokemon/${i}`);
+            if (!response.ok) continue;
+
+            const data = await response.json();
+            const pokemon = mapPokemon(data);
+
+            const matchesCapacity = !capacity || pokemon.type.includes(typeOfCapacity[capacity]);
+
+            if (matchesCapacity) {
+                const pokemonElmt = document.createElement("div");
+                pokemonElmt.classList.add("pokemon");
+
+                pokemonElmt.innerHTML = `
+                    <img src="${pokemon.image}" alt="${pokemon.name}">
+                    <h3 class="pokemonName">${pokemon.name}</h3>
+                    <p class="pokemonNumber">#${pokemon.numPokedex}</p>
+                    
+                `;
+
+                pokemonContainer.appendChild(pokemonElmt);
+                count++;
+            }
+        }
+    } catch (error) {
+        console.error("Erreur ", error);
     }
-}
+};
 
+const addToPokedex = (pokemon) => {
+    let pokedex = JSON.parse(localStorage.getItem('pokedex')) || [];
+    if (!pokedex.find(p => p.numPokedex === pokemon.numPokedex)) {
+        pokedex.push(pokemon);
+        localStorage.setItem('pokedex', JSON.stringify(pokedex));
+        displayPokedex();
+    }
+};
 
+const displayPokedex = () => {
+    const pokedexList = document.getElementById('pokedexList');
+    let pokedex = JSON.parse(localStorage.getItem('pokedex')) || [];
+    pokedexList.innerHTML = '';
+
+    pokedex.forEach(pokemon => {
+        const pokemonElmt = document.createElement("div");
+        pokemonElmt.classList.add("pokemon");
+
+        pokemonElmt.innerHTML = `
+            <img src="${pokemon.image}" alt="${pokemon.name}">
+            <h3 class="pokemonName">${pokemon.name}</h3>
+            <p class="pokemonNumber">#${pokemon.numPokedex}</p>
+        `;
+
+        pokedexList.appendChild(pokemonElmt);
+    });
+};
+
+document.addEventListener("DOMContentLoaded", () => {
+    getPokemonById(1); 
+    getFirst10Pokemons();
+    displayPokedex(); 
+});
+
+searchBtn.addEventListener("click", async (e) => {
+    e.preventDefault();
+    const input = pokemonInput.value.trim().toLowerCase();
+    await getPokemonById(input);
+});
+
+prevBtn.addEventListener("click", () => {
+    if (numberID > 1) {
+        numberID--;
+        getPokemonById(numberID);
+    }
+});
+
+nextBtn.addEventListener("click", () => {
+    numberID++;
+    getPokemonById(numberID);
+});
 
 filterButton.addEventListener("click", () => {
     filterModal.style.display = "block";
@@ -128,70 +206,24 @@ submitFilterButton.addEventListener("click", () => {
     filterModal.style.display = "none";
     filterOverlay.style.display = "none";
     const generation = generationSelect.value;
-    getFirst10Pokemons(generation);
+    const capacity = capacitySelect.value;
+    getFirst10Pokemons(generation, capacity);
 });
 
-const getFirst10Pokemons = async (generation) => {
-    const generationPokemon = orderGeneration[generation];
-    if (!generationPokemon) {
-        console.error(`Génération ${generation} inconnue`);
-        return;
-    }
-
-    const pokemonContainer = document.querySelector(".pokemonList20");
-    pokemonContainer.innerHTML = "";
-
-    try {
-        for (let i = generationPokemon.start; i < generationPokemon.start + 10; i++) {
-            try {
-                const response = await fetch(`${apiUrl}pokemon/${i}`);
-                if (!response.ok) {
-                    continue; 
-                }
-                const data = await response.json();
-                const pokemon = mapPokemon(data);
-                
-
-                const pokemonElmt = document.createElement("div");
-                pokemonElmt.classList.add("pokemon");
-
-                pokemonElmt.innerHTML = `
-                    <img src="${pokemon.image}" alt="${pokemon.name}">
-                    <h3 class="pokemonName">${pokemon.name}</h3>
-                    <p class="pokemonNumber">#${pokemon.numPokedex}</p>
-                `;
-
-                pokemonContainer.appendChild(pokemonElmt);
-            } catch (error) {
-                console.error(`Erreur de Pokemon${i}:`, error);
-            }
+document.addEventListener("click", async (e) => {
+    if (e.target && e.target.classList.contains("captureButton")) {
+        const pokemonId = e.target.dataset.id;
+        const pokemon = await getPokemonById(pokemonId);
+        if (pokemon) {
+            addToPokedex(pokemon);
         }
-    } catch (error) {
-        console.error("Erreur de Pokémon:", error);
-    }
-};
-
-document.addEventListener("DOMContentLoaded", () => {
-    getFirst10Pokemons(2); 
-});
-
-searchBtn.addEventListener("click", (e) => {
-    e.preventDefault();
-    const input = pokemonInput.value.trim().toLowerCase();
-    getPokemonById(input);
-});
-
-prevBtn.addEventListener("click", () => {
-    if (numberID > 1) {
-        numberID--;
-        getPokemonById(numberID);
     }
 });
 
-nextBtn.addEventListener("click", () => {
-    numberID++;
-    getPokemonById(numberID);
+addToPokedexBtn.addEventListener("click", async () => {
+    const pokemon = await getPokemonById(numberID);
+    if (pokemon) {
+        addToPokedex(pokemon);
+    }
 });
-
-getPokemonById(numberID);
 
